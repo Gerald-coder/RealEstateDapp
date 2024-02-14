@@ -5,4 +5,11 @@ const tokens = (n) => {
   return ethers.utils.parseUnits(n.toString(), "ether");
 };
 
-describe("Escrow", () => {});
+describe("Escrow", () => {
+  it("saves the address", async () => {
+    const ReaLEstate = ethers.getContractFactory("RealEstate");
+    let realEstate = await ReaLEstate.deploy;
+
+    console.log(realEstate.address);
+  });
+});
