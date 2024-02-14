@@ -40,3 +40,5 @@ In a separate terminal execute:
 ### hardhat for creating the smart contract, it is a smart contract contract development framework that will allow us create smart contract, write test for them and put them on the blockchain
 
 ### ether.js for talking to the smart contract in javascript to make the frontend and the backend to interact
+
+### openZeppelin for creating NFTs
