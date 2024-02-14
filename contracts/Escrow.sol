@@ -15,7 +15,7 @@ contract Escrow {
     address public nftAddress;
     address public inspector;
 
-    constructor (address _lender, address payable _seller, address _ntfAddress, address _inspector ){
+    constructor ( address _ntfAddress, address payable _seller, address _inspector,address _lender ){
         lender = _lender;
         seller = _seller;
         nftAddress = _ntfAddress;
