@@ -6,15 +6,15 @@ const tokens = (n) => {
 };
 
 describe("Escrow", () => {
-  let realEstate, buyer, seller, escrow, inspector, lender;
-  it("saves the address", async () => {
-    // set up account
-    [buyer, seller, inspector, lender] = await ethers.getSigners();
-    // console.log(buyer, seller);
+  let seller, realEstate, buyer, inspector, lender, escrow;
 
-    // deploy Real Estate
-    const ReaLEstate = await ethers.getContractFactory("RealEstate");
-    realEstate = await ReaLEstate.deploy();
+  beforeEach(async () => {
+    // setup accounts
+    [seller, buyer, inspector, lender] = await ethers.getSigners();
+
+    // deploy realEstate
+    const RealEstate = await ethers.getContractFactory("RealEstate");
+    realEstate = await RealEstate.deploy();
 
     // mint
     let transaction = await realEstate
@@ -24,7 +24,7 @@ describe("Escrow", () => {
       );
     await transaction.wait();
 
-    // deploy escrow
+    // deploy Escrow
     const Escrow = await ethers.getContractFactory("Escrow");
     escrow = await Escrow.deploy(
       realEstate.address,
@@ -32,18 +32,28 @@ describe("Escrow", () => {
       inspector.address,
       lender.address
     );
+  });
 
-    let result = await escrow.nftAddress();
-    expect(result).to.be.equal(realEstate.address);
-
-    result = await escrow.seller();
-    expect(result).to.be.equal(seller.address);
-
-    console.log(
-      realEstate.address,
-      seller.address,
-      inspector.address,
-      lender.address
-    );
+  describe("Deployment", () => {
+    it("saves the nftAddress", async () => {
+      const result = await escrow.nftAddress();
+      expect(result).to.be.equal(realEstate.address);
+      console.log(result);
+    });
+    it("saves the seller address", async () => {
+      const result = await escrow.seller();
+      expect(result).to.be.equal(seller.address);
+      console.log(result);
+    });
+    it("saves the inspector address", async () => {
+      const result = await escrow.inspector();
+      expect(result).to.be.equal(inspector.address);
+      console.log(result);
+    });
+    it("saves the lender address", async () => {
+      const result = await escrow.lender();
+      expect(result).to.be.equal(lender.address);
+      console.log(result);
+    });
   });
 });
