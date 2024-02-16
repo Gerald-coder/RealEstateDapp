@@ -32,28 +32,42 @@ describe("Escrow", () => {
       inspector.address,
       lender.address
     );
+
+    //approve realEstate
+    transaction = await realEstate.connect(seller).approve(escrow.address, 1);
+    await transaction.wait();
+
+    // List property
+    transaction = await realEstate.connect(seller).List(1);
+    await transaction.wait();
   });
 
   describe("Deployment", () => {
-    it("saves the nftAddress", async () => {
+    it("returns the nftAddress", async () => {
       const result = await escrow.nftAddress();
       expect(result).to.be.equal(realEstate.address);
       console.log(result);
     });
-    it("saves the seller address", async () => {
+    it("returns the seller address", async () => {
       const result = await escrow.seller();
       expect(result).to.be.equal(seller.address);
       console.log(result);
     });
-    it("saves the inspector address", async () => {
+    it("returns the inspector address", async () => {
       const result = await escrow.inspector();
       expect(result).to.be.equal(inspector.address);
       console.log(result);
     });
-    it("saves the lender address", async () => {
+    it("returns the lender address", async () => {
       const result = await escrow.lender();
       expect(result).to.be.equal(lender.address);
       console.log(result);
+    });
+  });
+
+  describe("Listing", () => {
+    it("Updates Ownership", async () => {
+      expect(await realEstate.ownerOf(1)).to.be.equal(escrow.address);
     });
   });
 });
