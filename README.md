@@ -42,3 +42,13 @@ In a separate terminal execute:
 ### ether.js for talking to the smart contract in javascript to make the frontend and the backend to interact
 
 ### openZeppelin for creating NFTs
+
+- Seller lists property
+- Buyer deposits earnset
+- Appraisal
+- Inspection
+- Lender approves
+- Lender funds
+- Transfer Ownership
+- Seller gets paid
+

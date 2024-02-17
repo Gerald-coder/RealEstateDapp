@@ -88,4 +88,17 @@ describe("Escrow", () => {
       expect(result.eq(tokens(5))).to.equal(true);
     });
   });
+
+  describe("Deposit", () => {
+    it("Updates deposit", async () => {
+      const transaction = await escrow
+        .connect(buyer)
+        .depositEarnest(1, { value: tokens(5) });
+      await transaction.wait();
+      //
+      const result = await escrow.getBalance();
+      // expect(result).to.be.equal(tokens(5));
+      expect(result.eq(tokens(5))).to.be.equal(true);
+    });
+  });
 });
