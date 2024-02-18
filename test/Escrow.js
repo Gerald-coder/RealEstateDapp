@@ -164,5 +164,10 @@ describe("Escrow", () => {
       const result = await realEstate.ownerOf(1);
       expect(result).to.be.equal(buyer.address);
     });
+    it("removes nft fron list", async () => {
+      const result = await escrow.isListing(1);
+      console.log(result);
+      expect(result).to.be.equal(false);
+    });
   });
 });

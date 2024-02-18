@@ -90,8 +90,21 @@ contract Escrow {
         (bool success,) = payable(seller).call{value: address(this).balance}("");
         require(success);
 
+        // remove nft from list
+        isListing[_nftID] = false;
+
         // transfer NFT from contract to the buyer
         IERC721(nftAddress).transferFrom(address(this), buyer[_nftID], _nftID);
 
     }
+
+    //  if transaction status is not approved, the refund, else send to seller
+    function cancelSale(uint256 _nftID) public {
+        if(inspectionPassed[_nftID] == false){
+            payable(buyer[_nftID]).transfer(address(this).balance);
+        }else {
+            payable(seller).transfer(address(this).balance);
+        }
+    }
 }
+
