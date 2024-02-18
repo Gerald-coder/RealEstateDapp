@@ -101,4 +101,16 @@ describe("Escrow", () => {
       expect(result.eq(tokens(5))).to.be.equal(true);
     });
   });
+
+  describe("Inspection", () => {
+    it("returns the inspction status", async () => {
+      const transaction = await escrow
+        .connect(inspector)
+        .updateInspectionStatus(1, true);
+      await transaction.wait();
+
+      const result = await escrow.inspectionPassed(1);
+      expect(result).to.be.equal(true);
+    });
+  });
 });
