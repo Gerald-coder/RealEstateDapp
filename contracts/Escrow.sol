@@ -21,6 +21,7 @@ contract Escrow {
     mapping(uint256 => uint256) public escrowAmount;
     mapping(uint256 => address) public buyer;
     mapping(uint256 => bool) public inspectionPassed;
+    mapping(uint256 => mapping(address => bool)) approved;
 
     modifier onlySeller () {
         require(msg.sender == seller, "only seller can call this method");
@@ -55,6 +56,11 @@ contract Escrow {
 
     function depositEarnest (uint256 _nftID) payable public onlyBuyer(_nftID) {
         require(msg.value >= escrowAmount[_nftID], "not enough ether for purchase, gerrry");
+    }
+
+    // approve sale
+    function approveSale(uint256 _nftID) public {
+        approved[_nftID][msg.sender] = true;
     }
 
     receive() external payable {}
