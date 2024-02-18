@@ -156,6 +156,13 @@ describe("Escrow", () => {
       transaction = await escrow.connect(seller).finalizeSales(1);
       await transaction.wait();
     });
-    it("works", async () => {});
+    it("updates balance", async () => {
+      const result = await escrow.getBalance();
+      expect(result.eq(0)).to.be.equal(true);
+    });
+    it("tranfers nft", async () => {
+      const result = await realEstate.ownerOf(1);
+      expect(result).to.be.equal(buyer.address);
+    });
   });
 });

@@ -87,6 +87,11 @@ contract Escrow {
         require(approved[_nftID][seller]);
         require(approved[_nftID][lender]);
         require(address(this).balance >= purchasePrice[_nftID]);
+        (bool success,) = payable(seller).call{value: address(this).balance}("");
+        require(success);
+
+        // transfer NFT from contract to the buyer
+        IERC721(nftAddress).transferFrom(address(this), buyer[_nftID], _nftID);
 
     }
 }
