@@ -21,7 +21,7 @@ contract Escrow {
     mapping(uint256 => uint256) public escrowAmount;
     mapping(uint256 => address) public buyer;
     mapping(uint256 => bool) public inspectionPassed;
-    mapping(uint256 => mapping(address => bool)) approved;
+    mapping(uint256 => mapping(address => bool)) public approved;
 
     modifier onlySeller () {
         require(msg.sender == seller, "only seller can call this method");
@@ -71,5 +71,22 @@ contract Escrow {
     
     function updateInspectionStatus (uint256 _nftID, bool _passed) public onlyInspector {
         inspectionPassed[_nftID] = _passed;
+    }
+
+
+    /*
+    1. require inspection status
+    2. requires sales to be authorized
+    3. required funds to be correct amount
+    4. tranfer nft to buyer
+    5. transfer funds to seller
+    /*/
+    function finalizeSales (uint256 _nftID) public {
+        require(inspectionPassed[_nftID]);
+        require(approved[_nftID][buyer[_nftID]]);
+        require(approved[_nftID][seller]);
+        require(approved[_nftID][lender]);
+        require(address(this).balance >= purchasePrice[_nftID]);
+
     }
 }
