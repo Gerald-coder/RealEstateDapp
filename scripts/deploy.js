@@ -71,8 +71,6 @@ async function main() {
   await transaction.wait();
 
   console.log("finished");
-  console.log(escrow, "escrow");
-  console.log(realEstate, "realEstate");
 }
 
 // We recommend this pattern to be able to use async/await everywhere
