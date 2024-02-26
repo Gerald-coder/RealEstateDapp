@@ -45,6 +45,8 @@ async function main() {
   );
   await escrow.deployed();
 
+  console.log(`deployed escrow at ${escrow.address} `);
+
   // approve properties
   for (let i = 0; i < 3; i++) {
     let transaction = await realEstate
@@ -58,7 +60,7 @@ async function main() {
     .connect(seller)
     .List(1, tokens(20), tokens(10), buyer.address);
   await transaction.wait();
-  console.log(realEstate);
+  // console.log(realEstate);
 
   transaction = await escrow
     .connect(seller)
