@@ -101,15 +101,15 @@ nav {
 header {
   background-image: url("./assets/houses.png");
   background-position: center;
-  background-size: cover;
-  min-height: 40vh;
+  background-size: auto;
+  min-height: 50vh;
 
   position: relative;
 }
 
 .header__title {
   position: absolute;
-  top: 25%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
 

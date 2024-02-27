@@ -37,7 +37,7 @@ function App() {
   }, []);
   return (
     <div>
-      <Navigation account={account} setAccount={setAccount} />{" "}
+      <Navigation account={account} setAccount={setAccount} /> <Search />
       <div className="cards__section">
         <h3>Welcome to Millow! you milk, let us get bread also</h3>
       </div>
