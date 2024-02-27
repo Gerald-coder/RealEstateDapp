@@ -57,7 +57,10 @@ In a separate terminal execute:
 hardhat gives us a way to run a blockchain on our computer without having to talk to the internet
 
 1. npx hardhat node : this starts a local hardhat blockchain on our computer. it starts a blockchain running
-2. create a script in the deploy.js that takes the smart contract that was created off our computer and puts them on local blockchain. the main function inside the deploy.js file is where we are going to take the smart contract off our computer and deploy them to the local blockchain, 
+2. create a script in the deploy.js that takes the smart contract that was created off our computer and puts them on local blockchain. the main function inside the deploy.js file is where we are going to take the smart contract off our computer and deploy them to the local blockchain,
 
-3. after writing the programs in the main function in the deploy.js file, in your terminal, you run 
+3. after writing the programs in the main function in the deploy.js file, in your terminal, you run
+
 # npx hardhat run scripts/deploy.js --network localhost
+
+4. when you install metamask in your device, it injects a property called etherum to the javascript browser windows object
