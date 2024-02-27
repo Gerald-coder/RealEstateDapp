@@ -13,19 +13,24 @@ import Escrow from "./abis/Escrow.json";
 // Config
 import config from "./config.json";
 
-const LoadBlockchainData = (async () => {
-  // ether enables our app to talk to the blockchain
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  console.log(provider);
-  const accounts = await window.ethereum.request({
-    method: "eth_requestAccounts",
-  });
-  console.log(accounts);
-})();
-
 function App() {
+  const [account, setAccount] = useState("");
+
+  const LoadBlockchainData = async () => {
+    // ether enables our app to talk to the blockchain
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // console.log(provider);
+
+    // automatically changing account
+  };
+  console.log(account);
+
+  useEffect(() => {
+    LoadBlockchainData();
+  }, []);
   return (
     <div>
+      <Navigation account={account} setAccount={setAccount} />{" "}
       <div className="cards__section">
         <h3>Welcome to Millow! you milk, let us get bread also</h3>
       </div>
