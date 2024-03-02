@@ -3,7 +3,7 @@ const Navigation = ({ account, setAccount }) => {
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
-    setAccount((prev) => (prev = accounts[0]));
+    setAccount(accounts[0]);
   };
   return (
     <nav>
