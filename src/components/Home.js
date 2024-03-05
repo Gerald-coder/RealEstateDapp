@@ -4,6 +4,42 @@ import { useEffect, useState } from "react";
 import close from "../assets/close.svg";
 
 const Home = ({ home, provider, escrow, togglePurchase }) => {
+  //   console.log(escrow, "escrow");
+  const [buyer, setBuyer] = useState(null);
+  const [seller, setSeller] = useState(null);
+  const [inspector, setInspector] = useState(null);
+  const [lender, setLender] = useState(null);
+
+  const [hasbought, setHasBought] = useState(false);
+  const [hassold, setHasSold] = useState(false);
+  const [hasInspected, setHasInspected] = useState(false);
+  const [hasLended, setHasLended] = useState(false);
+
+  const fetchDetails = async () => {
+    // buyer
+    const buyer = await escrow.buyer(home.id);
+    setBuyer(buyer);
+    const hasbought = await escrow.approval(home.id, buyer);
+    setHasBought(hasbought);
+
+    // seller
+    const seller = await escrow.seller();
+    setSeller(seller);
+    const hassold = await escrow.approval(home.id, seller);
+    setHasSold(hassold);
+
+    //inspector
+    const inspector = await escrow.inspector();
+    setInspector(inspector);
+    const hasinspected = await escrow.inspectionPassed(home.id);
+    setHasInspected(hasinspected);
+
+    // lender
+    const lender = await escrow.lender();
+    setLender(lender);
+    const haslended = await escrow.approval(home.id, lender);
+    setHasLended(haslended);
+  };
   return (
     <div className="home">
       <div className="home__details">
