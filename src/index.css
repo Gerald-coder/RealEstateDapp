@@ -247,7 +247,7 @@ header {
 }
 
 .home__image {
-  max-width: 500px;
+  max-width: 50%;
   margin: 20px auto;
 }
 
@@ -331,7 +331,7 @@ header {
 }
 
 .home__contact:hover {
-  background-color: #f7f7f7;
+  background-color: #cecfdf;
   color: var(--clr-blue-2);
 }
 

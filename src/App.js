@@ -18,6 +18,8 @@ function App() {
   const [provider, setProvider] = useState({});
   const [escrow, setEscrow] = useState(null);
   const [homes, setHomes] = useState([]);
+  const [home, setHome] = useState([]);
+  const [purchase, setPurchase] = useState(false);
 
   const LoadBlockchainData = async () => {
     // ether enables our app to talk to the blockchain
@@ -68,31 +70,46 @@ function App() {
   useEffect(() => {
     LoadBlockchainData();
   }, []);
+
+  const togglePurchase = (home) => {
+    setHome(home);
+    setPurchase(!purchase);
+  };
   return (
     <div>
       <Navigation account={account} setAccount={setAccount} /> <Search />
       <div className="cards__section">
         <h3>Homes for you</h3>
         <hr />
-        {homes.map((home, index) => (
-          <div className="cards">
-            <div className="card">
-              <div className="card__image">
-                <img src={home.image} alt="home" />
-              </div>
-              <div className="card__info">
-                <h4> {home.attributes[0].value}</h4>
-                <p>
-                  <strong>{home.attributes[2].value}</strong> bds |
-                  <strong>{home.attributes[3].value}</strong> ba |
-                  <strong>{home.attributes[4].value}</strong> sqFt |
-                </p>
-                <p> {home.address}</p>
+        <div className="cards">
+          {homes.map((home, index) => (
+            <div className="card" onClick={() => togglePurchase(home)}>
+              <div className="card">
+                <div className="card__image">
+                  <img src={home.image} alt="home" />
+                </div>
+                <div className="card__info">
+                  <h4> {home.attributes[0].value}</h4>
+                  <p>
+                    <strong>{home.attributes[2].value}</strong> bds |
+                    <strong>{home.attributes[3].value}</strong> ba |
+                    <strong>{home.attributes[4].value}</strong> sqFt |
+                  </p>
+                  <p> {home.address}</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
+      {purchase && (
+        <Home
+          escrow={escrow}
+          home={home}
+          provider={provider}
+          togglePurchase={togglePurchase}
+        />
+      )}
     </div>
   );
 }
